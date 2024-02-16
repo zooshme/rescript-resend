@@ -53,7 +53,7 @@ module Emails = {
     text: string,
   }
 
-  @send external send: (t, email) => Promise.t<Json.t> = "send"
+  @send external send: (t, email) => Promise.t<Js.Json.t> = "send"
 }
 
 type t = {emails: Emails.t}
