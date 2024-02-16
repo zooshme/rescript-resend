@@ -28,19 +28,23 @@ module Data = {
 }
 
 module Response = {
-  type t = {
-    data: Data.t,
-    error: Error.t,
-  }
+  type t =
+    | Data(string)
+    | Error(Error.t)
+}
 
-  let decode: Json.Decode.t<t> = {
-    open Json.Decode
+let decode: Json.Decode.t<t> = {
+  open Json.Decode
 
-    map2(field("data", Data.decode), field("error", Error.decode), ~f=(data, error) => {
-      data,
-      error,
-    })
-  }
+  map2(field("data", Json.nullable(Data.decode)), field("error", Json.nullable(Error.decode)), ~f=(
+    data,
+    error,
+  ) => {
+    switch (data, error) {
+    | (Some(data), None) => Data(data.id)
+    | (None, Some(error)) => Error(error)
+    }
+  })
 }
 
 module Emails = {
