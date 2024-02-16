@@ -1,6 +1,6 @@
 {
   "name": "@zooshme/rescript-resend",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "scripts": {
     "res:build": "./node_modules/.bin/rescript",
     "res:dev": "./node_modules/.bin/rescript build -w"
@@ -8,9 +8,9 @@
   "dependencies": {
     "@rescript/core": "^0.7.0",
     "@rescript/react": "^0.12.0",
+    "@zooshme/rescript-json": "^0.0.2",
     "rescript": "^11.0.1",
     "resend": "^3.2.0"
-
   },
   "type": "module"
 }
