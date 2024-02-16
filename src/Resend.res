@@ -36,7 +36,7 @@ module Response = {
   let decode: Json.Decode.t<t> = {
     open Json.Decode
 
-    map2(field("data", Data.decode), field("error", Error.decode), ~f=data => error => {
+    map2(field("data", Data.decode), field("error", Error.decode), ~f=(data, error) => {
       data,
       error,
     })
