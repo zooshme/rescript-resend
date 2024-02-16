@@ -31,20 +31,21 @@ module Response = {
   type t =
     | Data(string)
     | Error(Error.t)
-}
 
-let decode: Json.Decode.t<t> = {
-  open Json.Decode
+  let decode: Json.Decode.t<t> = {
+    open Json.Decode
 
-  map2(field("data", Json.nullable(Data.decode)), field("error", Json.nullable(Error.decode)), ~f=(
-    data,
-    error,
-  ) => {
-    switch (data, error) {
-    | (Some(data), None) => Data(data.id)
-    | (None, Some(error)) => Error(error)
-    }
-  })
+    map2(
+      field("data", Json.nullable(Data.decode)),
+      field("error", Json.nullable(Error.decode)),
+      ~f=(data, error) => {
+        switch (data, error) {
+        | (Some(data), None) => Data(data.id)
+        | (None, Some(error)) => Error(error)
+        }
+      },
+    )
+  }
 }
 
 module Emails = {
