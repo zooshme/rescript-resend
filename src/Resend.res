@@ -2,7 +2,7 @@ module Error = {
   type t = {
     statusCode: int,
     message: string,
-    name: string
+    name: string,
   }
 
   let decode: Json.Decode.t<t> = {
@@ -12,40 +12,34 @@ module Error = {
       field("statusCode", int),
       field("message", string),
       field("name", string),
-      ~f=statusCode => message => name => {statusCode, message, name}
+      ~f=statusCode => message => name => {statusCode, message, name},
     )
   }
 }
 
 module Data = {
-  type t = {
-    id: string
-  }
+  type t = {id: string}
 
   let decode: Json.Decode.t<t> = {
     open Json.Decode
 
-    map(
-      field("id", string),
-      ~f=id => {id}
-    )
+    map(field("id", string), ~f=id => {id: id})
   }
 }
 
 module Response = {
-  type t  = {
+  type t = {
     data: Data.t,
-    error: Error.t
+    error: Error.t,
   }
 
   let decode: Json.Decode.t<t> = {
     open Json.Decode
 
-    map2(
-      field("data", Data.decode),
-      field("error", Error.decode),
-      ~f=data => error => {data, error}
-    )
+    map2(field("data", Data.decode), field("error", Error.decode), ~f=data => error => {
+      data,
+      error,
+    })
   }
 }
 
