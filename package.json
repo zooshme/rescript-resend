@@ -1,6 +1,6 @@
 {
   "name": "@zooshme/rescript-resend",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "scripts": {
     "res:build": "./node_modules/.bin/rescript",
     "res:dev": "./node_modules/.bin/rescript build -w"

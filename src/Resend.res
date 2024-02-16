@@ -36,8 +36,8 @@ module Response = {
     open Json.Decode
 
     map2(
-      field("data", Json.nullable(Data.decode)),
-      field("error", Json.nullable(Error.decode)),
+      field("data", Json.Decode.nullable(Data.decode)),
+      field("error", Json.Decode.nullable(Error.decode)),
       ~f=(data, error) => {
         switch (data, error) {
         | (Some(data), None) => Data(data.id)
