@@ -1,6 +1,6 @@
 {
   "name": "@zooshme/rescript-resend",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "scripts": {
     "res:build": "rescript",
     "res:dev": "rescript build -w"
