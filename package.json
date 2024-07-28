@@ -2,8 +2,8 @@
   "name": "@zooshme/rescript-resend",
   "version": "0.0.10",
   "scripts": {
-    "res:build": "./node_modules/.bin/rescript",
-    "res:dev": "./node_modules/.bin/rescript build -w"
+    "res:build": "rescript",
+    "res:dev": "rescript build -w"
   },
   "dependencies": {
     "@rescript/react": "^0.12.0",
