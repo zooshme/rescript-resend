@@ -29,8 +29,9 @@ module Data = {
 
 module Response = {
   type t =
-    | Data(string)
+    | Data(Data.t)
     | Error(Error.t)
+    | Empty
 
   let decode: Json.Decode.t<t> = {
     open Json.Decode
@@ -40,8 +41,9 @@ module Response = {
       field("error", Json.Decode.nullable(Error.decode)),
       ~f=(data, error) => {
         switch (data, error) {
-        | (Some(data), None) => Data(data.id)
-        | (None, Some(error)) => Error(error)
+        | (Some(data), _) => Data(data)
+        | (_, Some(error)) => Error(error)
+        | (None, None) => Empty
         }
       },
     )
@@ -51,14 +53,22 @@ module Response = {
 module Emails = {
   type t
 
-  type email = {
+  type textEmail = {
     from: string,
     to: string,
     subject: string,
     text: string,
   }
 
-  @send external send: (t, email) => Promise.t<Js.Json.t> = "send"
+  type htmlEmail = {
+    from: string,
+    to: string,
+    subject: string,
+    html: string,
+  }
+
+  @send external sendText: (t, textEmail) => Promise.t<JSON.t> = "send"
+  @send external sendHtml: (t, htmlEmail) => Promise.t<JSON.t> = "send"
 }
 
 type t = {emails: Emails.t}
